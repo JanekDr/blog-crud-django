@@ -1,0 +1,30 @@
+
+.nav-item {
+    color: white;
+}
+
+.btn {
+    margin-left: 10px;
+}
+
+.post_container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.a-edit {
+    text-decoration: none;
+    color: white;
+}
+
+#post_ordering {
+    margin-top:20px;
+}
+
+.nav-link, .navbar-text {
+    color: lightgrey;
+}
+
+.nav-link:hover {
+    color: white;
+}

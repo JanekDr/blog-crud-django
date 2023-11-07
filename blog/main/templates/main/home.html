@@ -1,0 +1,69 @@
+{% extends 'main/index.html' %}
+{% load auth_extras %}
+{% block title %}Blog page{% endblock%}
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" id="post_ordering">
+    <h3>Uporządkuj według:</h3>
+    <div class="dropdown">
+        <form method="GET">
+            {% csrf_token %}
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="/static/icons8-menu.svg" width="32" height="32"/>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="ordering=latest">Data(najnowsze)</a></li>
+                <li><a class="dropdown-item" href="ordering=oldest">Data(najstarsze)</a></li>
+            </ul>
+        </form>
+    </div>
+</div>
+{% for post in posts %}
+<div class="post_container">
+    <div class="card text-center">
+        <div class="card-header d-flex justify-content-between">
+            <div class="d-flex align-content-center flex-wrap"> 
+                <strong>@{{post.author}}</strong>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div>
+                    {% if user == post.author or perms.main.delete_post %}
+                        <form method="POST" >
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger" name="post-id" value="{{post.id}}">Delete</button>
+                        </form>
+                    {% endif %}
+                </div>
+                <div>
+                    {% if user|has_group:"mod" and user != post.author %}
+                        <form method="POST" >
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-warning" name="user-id" value="{{post.author.id}}">Ban user</button>
+                        </form>
+                    {% endif %}
+                </div>
+                <div>
+                    {% if user == post.author or perms.main.change_post %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-info"><a class="a-edit" href="{% url 'edit_post' pk=post.pk %}">Edit</a></button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div>
+                <h5 class="card-title">{{post.title}}</h5>
+                <p class="card-text">{{post.description}}</p>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            {{post.created_at}}
+        </div>
+    </div>
+</div>
+<hr>
+{% empty %}
+    <p>No posts yet :(</p>
+{% endfor %}
+{% endblock %}

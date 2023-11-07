@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\migrations",
+    "\\static",
+    "\\templates",
+    "\\templatetags"
+  ],
+  "SelectedNode": "\\views.py",
+  "PreviewInSolutionExplorer": false
+}
