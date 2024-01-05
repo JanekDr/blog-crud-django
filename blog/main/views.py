@@ -1,9 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404, reverse
+from django.shortcuts import render, redirect, get_object_or_404
 from .form import *
 from django.contrib.auth.decorators import login_required, permission_required
 from .models import Post
 from django.contrib.auth.models import User, Group
-from django.http import HttpResponseForbidden
 
 
 # Create your views here.
